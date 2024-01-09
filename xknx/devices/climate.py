@@ -245,9 +245,9 @@ class Climate(Device):
         )
         base_temperature = self.base_temperature
         await self._setpoint_shift.set(validated_offset)
-        # broadcast new target temperature and set internally
+        # set new temperature internally
         if self.target_temperature.writable and base_temperature is not None:
-            await self.target_temperature.set(base_temperature + validated_offset)
+            self.target_temperature.value = base_temperature + validated_offset
 
     @property
     def target_temperature_max(self) -> float | None:
